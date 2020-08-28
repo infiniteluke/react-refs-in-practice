@@ -5,8 +5,11 @@ import { Notes } from "mdx-deck";
 import { bigCode } from "./lib";
 import Arrow from "./components/Arrow";
 import NoScrollApp from "./components/NoScrollApp";
+import ScrollApp from "./components/ScrollApp";
 import Variable from "./components/Variable";
 import TextInputWithFocusButton from "./components/TextInputWithFocusButton";
+
+import estimateGif from "./estimate-error-scroll.gif";
 
 import "./index.css";
 
@@ -361,10 +364,270 @@ export default function PhotoApp() {
 
 
 - How many times have you heard this?
-- As a customer, I want to see the post that goes with a comment I select and a comment that goes with the post I select, so I can stay in the flow while editting
+- As a Photo Editor, I want to see the post that goes with a comment I select and a comment that goes with the post I select, so I can stay in the flow while editting
 
 </Notes>
 
+
+---
+
+<CodeSurfer>
+
+
+```jsx 2:7 subtitle="Setup refs for posts/comments"
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null,
+  });
+  const commentsRef = React.useRef({});
+  const postsRef = React.useRef({});
+
+  const selectPost = (i) => {
+    const firstComment = relatedComment(i);
+    if (firstComment) {
+      dispatch({ type: "selectPost", selectedIndex: i });
+      commentsRef.current[firstComment.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+  const selectComment = (comment) => {
+    dispatch({ type: "selectComment", comment });
+    const post = relatedPost(comment);
+    if (post) {
+      postsRef.current[post.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            ref={(el) => (postsRef.current[post.id] = el)}
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            hasComments={Boolean(relatedComment(post.id))}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            ref={(el) => (commentsRef.current[comment.id] = el)}
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
+```jsx 34:41 subtitle="Assign the DOM element for a post in the ref object key by id"
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null,
+  });
+  const commentsRef = React.useRef({});
+  const postsRef = React.useRef({});
+
+  const selectPost = (i) => {
+    const firstComment = relatedComment(i);
+    if (firstComment) {
+      dispatch({ type: "selectPost", selectedIndex: i });
+      commentsRef.current[firstComment.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+  const selectComment = (comment) => {
+    dispatch({ type: "selectComment", comment });
+    const post = relatedPost(comment);
+    if (post) {
+      postsRef.current[post.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            ref={(el) => (postsRef.current[post.id] = el)}
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            hasComments={Boolean(relatedComment(post.id))}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            ref={(el) => (commentsRef.current[comment.id] = el)}
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
+```jsx 9:18
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null,
+  });
+  const commentsRef = React.useRef({});
+  const postsRef = React.useRef({});
+
+  const selectPost = (i) => {
+    const firstComment = relatedComment(i);
+    if (firstComment) {
+      dispatch({ type: "selectPost", selectedIndex: i });
+      commentsRef.current[firstComment.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+  const selectComment = (comment) => {
+    dispatch({ type: "selectComment", comment });
+    const post = relatedPost(comment);
+    if (post) {
+      postsRef.current[post.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            ref={(el) => (postsRef.current[post.id] = el)}
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            hasComments={Boolean(relatedComment(post.id))}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            ref={(el) => (commentsRef.current[comment.id] = el)}
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
+```jsx 13:16
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null,
+  });
+  const commentsRef = React.useRef({});
+  const postsRef = React.useRef({});
+
+  const selectPost = (i) => {
+    const firstComment = relatedComment(i);
+    if (firstComment) {
+      dispatch({ type: "selectPost", selectedIndex: i });
+      commentsRef.current[firstComment.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+  const selectComment = (comment) => {
+    dispatch({ type: "selectComment", comment });
+    const post = relatedPost(comment);
+    if (post) {
+      postsRef.current[post.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            ref={(el) => (postsRef.current[post.id] = el)}
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            hasComments={Boolean(relatedComment(post.id))}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            ref={(el) => (commentsRef.current[comment.id] = el)}
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
+</CodeSurfer>
+
+
+---
+
+<ScrollApp />
+
+---
+
+<h1>But... IRL?</h1>
+
+---
+
+<img src={estimateGif} />
+
+---
+
+<h1 style={{ color: "#00a4db", fontSize: "3.75em" }}>Thanks!</h1>
 
 ---
 
