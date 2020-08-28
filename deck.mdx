@@ -137,7 +137,7 @@ return (
 
 ---
 
-<h1 style={{ fontSize: "3.75em" }}>Not Just for DOM: Example?</h1>
+<h1 style={{ fontSize: "3.75em" }}>Not Just for DOM</h1>
 <Variable style={{ width: "7em" }} />
 
 <Notes>
@@ -151,6 +151,41 @@ return (
 
 </Notes>
 
+
+---
+
+<CodeSurfer>
+
+
+```jsx
+export default function useMyApi() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    categories: [],
+    loading: false,
+    connecting: true,
+  });
+  const api = React.useRef(new MyApi({ state, dispatch }));
+  return [api.current, state];
+}
+```
+
+```jsx
+function App() {
+  const [api, state] = useMyApi();
+  const sync = () => api.send("syncData", format(new Date(), "yyyy-LL"));
+
+  return <button onClick={sync}>{state.syncing ? "Syncing" : "Sync"}</button>;
+}
+```
+
+</CodeSurfer>
+
+
+---
+
+<h1 style={{ fontSize: "3.75em", color: "#e3116c" }}>Example:</h1>
+
+<h1 style={{ fontSize: "2.75em" }}>PhotoApp</h1>
 
 ---
 
@@ -492,6 +527,65 @@ export default function PhotoApp() {
 }
 ```
 
+```jsx 46:51 subtitle="Assign the DOM element for a post in the ref object key by id"
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null,
+  });
+  const commentsRef = React.useRef({});
+  const postsRef = React.useRef({});
+
+  const selectPost = (i) => {
+    const firstComment = relatedComment(i);
+    if (firstComment) {
+      dispatch({ type: "selectPost", selectedIndex: i });
+      commentsRef.current[firstComment.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+  const selectComment = (comment) => {
+    dispatch({ type: "selectComment", comment });
+    const post = relatedPost(comment);
+    if (post) {
+      postsRef.current[post.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            ref={(el) => (postsRef.current[post.id] = el)}
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            hasComments={Boolean(relatedComment(post.id))}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            ref={(el) => (commentsRef.current[comment.id] = el)}
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
 ```jsx 9:18
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
@@ -610,6 +704,65 @@ export default function PhotoApp() {
 }
 ```
 
+```jsx 19:28
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null,
+  });
+  const commentsRef = React.useRef({});
+  const postsRef = React.useRef({});
+
+  const selectPost = (i) => {
+    const firstComment = relatedComment(i);
+    if (firstComment) {
+      dispatch({ type: "selectPost", selectedIndex: i });
+      commentsRef.current[firstComment.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+  const selectComment = (comment) => {
+    dispatch({ type: "selectComment", comment });
+    const post = relatedPost(comment);
+    if (post) {
+      postsRef.current[post.id].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  };
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            ref={(el) => (postsRef.current[post.id] = el)}
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            hasComments={Boolean(relatedComment(post.id))}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            ref={(el) => (commentsRef.current[comment.id] = el)}
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
 </CodeSurfer>
 
 
@@ -624,6 +777,69 @@ export default function PhotoApp() {
 ---
 
 <img src={estimateGif} />
+
+---
+
+<h1>Accessibility</h1>
+
+---
+
+<ScrollApp />
+
+---
+
+<CodeSurfer>
+
+
+```jsx 17:24
+<Dialog
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+>
+  <DialogTitle id="alert-dialog-title">{"Delete?"}</DialogTitle>
+  <DialogContent>
+    <DialogContentText id="alert-dialog-description">
+      Are you sure you want to delete this post?
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleClose} color="primary">
+      Dismiss
+    </Button>
+    <Button
+      autoFocus
+      onClick={handleClose}
+      variant="contained"
+      color="secondary"
+    >
+      Delete
+    </Button>
+  </DialogActions>
+</Dialog>
+```
+
+```jsx
+function Button({ children, autoFocus, onClick }) {
+  const buttonEl = React.useRef();
+
+  React.useEffect(() => {
+    if (autoFocus) {
+      buttonEl.current.focus();
+    }
+  }, [autoFocus]);
+
+  return (
+    <button onClick={onClick} ref={buttonEl}>
+      {children}
+    </button>
+  );
+}
+```
+
+</CodeSurfer>
+
 
 ---
 
