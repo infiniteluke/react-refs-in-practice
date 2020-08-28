@@ -39,7 +39,7 @@ export const theme = github;
 
 - Ability to mutate
 - React is a layer on top of the DOM, hides it's ugly parts
-- Hide mutation, but where's the escape hatch?
+- Hide dom mutation, but where's the escape hatch?
 
 </Notes>
 
@@ -106,19 +106,19 @@ return (
 <CodeSurfer theme={bigCode}>
 
 
-```js title="Input" 1
+```js title="Input element methods" 1
 .focus()
 .select()
 .scrollIntoView()
 ```
 
-```js title="Input" 2
+```js title="Input element methods" 2
 .focus()
 .select()
 .scrollIntoView()
 ```
 
-```js title="Input" 3
+```js title="Input element methods" 3
 .focus()
 .select()
 .scrollIntoView()
@@ -196,7 +196,7 @@ function App() {
 <CodeSurfer>
 
 
-```jsx
+```jsx subtitle="Store selected post/comment as state"
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
@@ -270,7 +270,7 @@ export default function PhotoApp() {
 }
 ```
 
-```jsx 13:22
+```jsx 13:22  subtitle="Calculate selected based on current selected post"
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
@@ -400,6 +400,13 @@ export default function PhotoApp() {
 
 - How many times have you heard this?
 - As a Photo Editor, I want to see the post that goes with a comment I select and a comment that goes with the post I select, so I can stay in the flow while editting
+- Remeber scrollIntoView?
+- document.querySelector(...
+  - Breaks encapsulation
+  - Couples component to DOM classes, id
+  - Global variables, implicit “wiring”
+  - Doesn’t React dev tools
+  - Hard to test
 
 </Notes>
 
@@ -468,7 +475,7 @@ export default function PhotoApp() {
 }
 ```
 
-```jsx 34:41 subtitle="Assign the DOM element for a post in the ref object key by id"
+```jsx 34:41 subtitle="Assign the DOM element for each post in the ref object key by id"
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
@@ -527,7 +534,7 @@ export default function PhotoApp() {
 }
 ```
 
-```jsx 46:51 subtitle="Assign the DOM element for a post in the ref object key by id"
+```jsx 46:51 subtitle="Assign the DOM element for each comment in the ref object key by id"
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
@@ -645,7 +652,7 @@ export default function PhotoApp() {
 }
 ```
 
-```jsx 13:16
+```jsx 13:16 subtitle="Use the related comment to find the right element to scroll to"
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
