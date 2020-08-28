@@ -1023,7 +1023,7 @@
     prismjs "^1.16.0"
     shell-quote "^1.6.1"
 
-"@code-surfer/themes@3.1.1":
+"@code-surfer/themes@3.1.1", "@code-surfer/themes@^3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@code-surfer/themes/-/themes-3.1.1.tgz#b7ec59e3bdf552bd41a1240fe1d999595f4aeb61"
   integrity sha512-XKoRsVgr09DPVfhmUeULzVykjjsV7OPPSexgF3T1NBG9sAoZcPe5aJljFyc3hutR90cLhavbDWCeikYqryPpfg==
