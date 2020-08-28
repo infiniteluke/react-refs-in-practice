@@ -46,6 +46,25 @@ export const theme = github;
 
 ---
 
+<h1 style={{ fontSize: "3.75em" }}>
+  <span style={{ color: "#6f42c1" }}>Data |</span> React{" "}
+  <span style={{ color: "#6f42c1" }}>| DOM</span>
+</h1>
+
+<Notes>
+
+
+- The edges of React are the hardest parts
+
+</Notes>
+
+
+---
+
+<h1 style={{ fontSize: "3.75em", color: "#6f42c1" }}>DOM</h1>
+
+---
+
 <CodeSurfer>
 
 
@@ -109,18 +128,28 @@ return (
 ```js title="Input element methods" 1
 .focus()
 .select()
+.getBoundingClientRect()
 .scrollIntoView()
 ```
 
 ```js title="Input element methods" 2
 .focus()
 .select()
+.getBoundingClientRect()
 .scrollIntoView()
 ```
 
 ```js title="Input element methods" 3
 .focus()
 .select()
+.getBoundingClientRect()
+.scrollIntoView()
+```
+
+```js title="Input element methods" 4
+.focus()
+.select()
+.getBoundingClientRect()
 .scrollIntoView()
 ```
 
@@ -400,7 +429,7 @@ export default function PhotoApp() {
 
 - How many times have you heard this?
 - As a Photo Editor, I want to see the post that goes with a comment I select and a comment that goes with the post I select, so I can stay in the flow while editting
-- Remeber scrollIntoView?
+- Remember scrollIntoView?
 - document.querySelector(...
   - Breaks encapsulation
   - Couples component to DOM classes, id
@@ -475,7 +504,7 @@ export default function PhotoApp() {
 }
 ```
 
-```jsx 34:41 subtitle="Assign the DOM element for each post in the ref object key by id"
+```jsx 34:41 subtitle="Callback ref"
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
@@ -850,9 +879,20 @@ function Button({ children, autoFocus, onClick }) {
 
 ---
 
+<h1 style={{ color: "#6f42c1", fontSize: "3.75em" }}>Refs</h1>
+
+# Do things "outside" of React
+
+# Hold a mutable value across renders
+
+---
+
 <h1 style={{ color: "#00a4db", fontSize: "3.75em" }}>Thanks!</h1>
 
 ---
 
+- [Refs doc](https://reactjs.org/docs/refs-and-the-dom.html)
+- [useRef doc](https://reactjs.org/docs/hooks-reference.html#useref)
+- [Forwarding refs doc](https://reactjs.org/docs/forwarding-refs.html)
 - [Html Input Element API](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement)
 - [Dialog a11y](https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/dialog.html)
