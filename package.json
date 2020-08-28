@@ -1,0 +1,15 @@
+{
+  "name": "react-refs-in-practice",
+  "version": "1.0.0",
+  "description": "A presentation about how to use React refs in practice",
+  "main": "index.js",
+  "repository": "git@github.com:infiniteluke/react-refs-in-practice.git",
+  "author": "Luke Herrington <lherrington100@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "mdx-deck deck.mdx"
+  },
+  "dependencies": {
+    "mdx-deck": "^4.1.1"
+  }
+}
