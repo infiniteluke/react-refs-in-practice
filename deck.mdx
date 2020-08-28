@@ -1,35 +1,38 @@
-import { CodeSurfer } from "code-surfer"
-import { github } from "@code-surfer/themes"
-import { Notes } from 'mdx-deck'
+import { CodeSurfer } from "code-surfer";
+import { github } from "@code-surfer/themes";
+import { Notes } from "mdx-deck";
 
-import { bigCode } from './lib'
-import Arrow from './components/Arrow'
-import NoScrollApp from './components/NoScrollApp'
-import Variable from './components/Variable'
-import TextInputWithFocusButton from './components/TextInputWithFocusButton'
+import { bigCode } from "./lib";
+import Arrow from "./components/Arrow";
+import NoScrollApp from "./components/NoScrollApp";
+import Variable from "./components/Variable";
+import TextInputWithFocusButton from "./components/TextInputWithFocusButton";
 
-import './index.css'
+import "./index.css";
 
-<!-- ------ colors ------ -->
+<!-- colors -->
 <!-- pink: #e3116c -->
 <!-- blue: #00a4db -->
 <!-- purple: #6f42c1 -->
-<!-- ------ colors ------ -->
+<!-- colors -->
 
-export const theme = github
+export const theme = github;
 
-<h1 style={{ fontSize: '3.75em'}}>React Refs in Practice</h1>
-
----
-
-<h1 style={{ fontSize: '3.75em'}}>Ref<span style={{ color: '#e3116c' }}>erence</span></h1>
-<Arrow style={{width:'7em'}} />
+<h1 style={{ fontSize: "3.75em" }}>React Refs in Practice</h1>
 
 ---
 
-<h1 style={{ color: '#00a4db', fontSize: '3.75em'}}>Mutability</h1>
+<h1 style={{ fontSize: "3.75em" }}>
+  Ref<span style={{ color: "#e3116c" }}>erence</span>
+</h1>
+<Arrow style={{ width: "7em" }} />
+
+---
+
+<h1 style={{ color: "#00a4db", fontSize: "3.75em" }}>Mutability</h1>
 
 <Notes>
+
 
 - Ability to mutate
 - React is a layer on top of the DOM, hides it's ugly parts
@@ -37,9 +40,11 @@ export const theme = github
 
 </Notes>
 
+
 ---
 
 <CodeSurfer>
+
 
 ```jsx
 const inputEl = useRef();
@@ -88,6 +93,7 @@ return (
 
 </CodeSurfer>
 
+
 ---
 
 <TextInputWithFocusButton />
@@ -95,6 +101,7 @@ return (
 ---
 
 <CodeSurfer theme={bigCode}>
+
 
 ```js title="Input" 1
 .focus()
@@ -116,18 +123,22 @@ return (
 
 </CodeSurfer>
 
+
 <Notes>
+
 
 - HTML elements can do some cool stuff
 
 </Notes>
 
+
 ---
 
-<h1 style={{ fontSize: '3.75em'}}>Not Just for DOM: Example?</h1>
-<Variable style={{width:'7em'}} />
+<h1 style={{ fontSize: "3.75em" }}>Not Just for DOM: Example?</h1>
+<Variable style={{ width: "7em" }} />
 
 <Notes>
+
 
 - Mentioned at beginning "Mutable value storage"
 - DOM just happens to be mutable, so are other things
@@ -137,20 +148,21 @@ return (
 
 </Notes>
 
+
 ---
 
 <NoScrollApp />
 
 ---
 
-
 <CodeSurfer>
+
 
 ```jsx
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
-    selectComment: null
+    selectComment: null,
   });
 
   const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
@@ -187,7 +199,7 @@ export default function PhotoApp() {
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
-    selectComment: null
+    selectComment: null,
   });
 
   const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
@@ -224,7 +236,7 @@ export default function PhotoApp() {
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
-    selectComment: null
+    selectComment: null,
   });
 
   const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
@@ -261,7 +273,7 @@ export default function PhotoApp() {
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
-    selectComment: null
+    selectComment: null,
   });
 
   const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
@@ -298,7 +310,7 @@ export default function PhotoApp() {
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
-    selectComment: null
+    selectComment: null,
   });
 
   const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
@@ -333,21 +345,26 @@ export default function PhotoApp() {
 
 </CodeSurfer>
 
+
 ---
 
 <NoScrollApp />
 
 ---
 
-<h1 style={{ fontSize: '3.75em'}}><i>"How hard would it be to?..."</i></h1>
+<h1 style={{ fontSize: "3.75em" }}>
+  <i>"How hard would it be to?..."</i>
+</h1>
 <h1> - UX</h1>
 
 <Notes>
+
 
 - How many times have you heard this?
 - As a customer, I want to see the post that goes with a comment I select and a comment that goes with the post I select, so I can stay in the flow while editting
 
 </Notes>
+
 
 ---
 

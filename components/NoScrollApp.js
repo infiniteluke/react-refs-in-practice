@@ -14,10 +14,10 @@ import {
   TableContainer,
   TableBody,
   TableRow,
-  TableCell
+  TableCell,
 } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
-import { comments, posts } from '../data.json'
+import { comments, posts } from "../data.json";
 import { reducer } from "../lib";
 import { useStyles } from "../hooks";
 
@@ -30,7 +30,7 @@ function PostNumber({ num }) {
         marginRight: "5px",
         padding: "5px",
         borderRadius: "4px",
-        backgroundColor: grey[300]
+        backgroundColor: grey[300],
       }}
     >
       {num + 1}
@@ -147,7 +147,7 @@ function Comment({ author, text, selected, created, post, onClick }) {
 export default function PhotoApp() {
   const [state, dispatch] = React.useReducer(reducer, {
     selectedIndex: null,
-    selectComment: null
+    selectComment: null,
   });
 
   const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });

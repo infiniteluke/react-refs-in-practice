@@ -6,7 +6,7 @@ const posts = Array(30)
   .map((_, i) => ({
     id: i,
     text: loremIpsum({ count: 2 }),
-    src: `https://source.unsplash.com/user/erondu/1000x700?${i}`
+    src: `https://source.unsplash.com/user/erondu/1000x700?${i}`,
   }));
 
 const randomInitials = () =>
@@ -28,12 +28,11 @@ const comments = Array(40)
     author: randomInitials(),
     created: randomDate(),
     text: loremIpsum(),
-    post: Math.round(Math.random() * (posts.length - 1)) + 1
+    post: Math.round(Math.random() * (posts.length - 1)) + 1,
   }))
   .sort((a, b) => a.post - b.post);
 
-fs.writeJson('./data.json', {
+fs.writeJson("./data.json", {
   comments,
-  posts
-})
-
+  posts,
+});
