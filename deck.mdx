@@ -1,5 +1,14 @@
 import { CodeSurfer } from "code-surfer"
 import { github } from "@code-surfer/themes"
+import { Notes } from 'mdx-deck'
+
+import { bigCode } from './lib'
+import Arrow from './components/Arrow'
+import NoScrollApp from './components/NoScrollApp'
+import Variable from './components/Variable'
+import TextInputWithFocusButton from './components/TextInputWithFocusButton'
+
+import './index.css'
 
 export const theme = github
 
@@ -7,14 +16,334 @@ export const theme = github
 
 ---
 
+<h1 style={{ fontSize: '3.75em'}}>Reference</h1>
+<Arrow style={{width:'7em'}} />
+
+---
+
+<h1 style={{ fontSize: '3.75em'}}>Mutability</h1>
+
+<Notes>
+
+- Ability to mutate
+- React is a layer on top of the DOM, hides it's ugly parts
+- Hide mutation, but where's the escape hatch?
+
+</Notes>
+
+---
+
 <CodeSurfer>
 
-```js
-console.log(1);
-console.log(2);
-console.log(3);
+```jsx
+const inputEl = useRef();
+```
+
+```jsx subtitle="Attach the ref to an element"
+const inputEl = useRef();
+
+return (
+  <>
+    <input ref={inputEl} type="text" />
+    <button onClick={onButtonClick}>Focus Input</button>
+  </>
+);
+```
+
+```jsx subtitle="Focus on click"
+const inputEl = useRef();
+
+const onButtonClick = () => {
+  inputEl.current.focus();
+};
+
+return (
+  <>
+    <input ref={inputEl} type="text" />
+    <button onClick={onButtonClick}>Focus Input</button>
+  </>
+);
+```
+
+```jsx subtitle=".current stores the ref value" 4
+const inputEl = useRef();
+
+const onButtonClick = () => {
+  inputEl.current.focus();
+};
+
+return (
+  <>
+    <input ref={inputEl} type="text" />
+    <button onClick={onButtonClick}>Focus Input</button>
+  </>
+);
 ```
 
 </CodeSurfer>
 
 ---
+
+<TextInputWithFocusButton />
+
+---
+
+<CodeSurfer theme={bigCode}>
+
+```js title="Input" 1
+.focus()
+.select()
+.scrollIntoView()
+```
+
+```js title="Input" 2
+.focus()
+.select()
+.scrollIntoView()
+```
+
+```js title="Input" 3
+.focus()
+.select()
+.scrollIntoView()
+```
+
+</CodeSurfer>
+
+<Notes>
+
+- HTML elements can do some cool stuff
+
+</Notes>
+
+---
+
+<h1 style={{ fontSize: '3.75em'}}>Not Just for DOM: Example?</h1>
+<Variable style={{width:'7em'}} />
+
+<Notes>
+
+- Mentioned at beginning "Mutable value storage"
+- DOM just happens to be mutable, so are other things
+- Anything you want to persist across re-renders, referential eqaulity
+- Useful for useEffect
+- ex: Class instance in function component
+
+</Notes>
+
+---
+
+<NoScrollApp />
+
+---
+
+
+<CodeSurfer>
+
+```jsx
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null
+  });
+
+  const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
+  const selectComment = (comment) =>
+    dispatch({ type: "selectComment", comment });
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
+```jsx 2:9
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null
+  });
+
+  const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
+  const selectComment = (comment) =>
+    dispatch({ type: "selectComment", comment });
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
+```jsx 13:22
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null
+  });
+
+  const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
+  const selectComment = (comment) =>
+    dispatch({ type: "selectComment", comment });
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
+```jsx 18:19
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null
+  });
+
+  const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
+  const selectComment = (comment) =>
+    dispatch({ type: "selectComment", comment });
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
+```jsx 23:31
+export default function PhotoApp() {
+  const [state, dispatch] = React.useReducer(reducer, {
+    selectedIndex: null,
+    selectComment: null
+  });
+
+  const selectPost = (i) => dispatch({ type: "selectPost", selectedIndex: i });
+  const selectComment = (comment) =>
+    dispatch({ type: "selectComment", comment });
+
+  return (
+    <App>
+      <Posts>
+        {posts.map((post) => (
+          <Post
+            key={post.id}
+            {...post}
+            selected={state.selectedIndex === post.id}
+            onClick={() => selectPost(post.id)}
+          />
+        ))}
+      </Posts>
+      <Comments>
+        {comments.map((comment) => (
+          <Comment
+            {...comment}
+            selected={state.selectedComment === comment.id}
+            onClick={() => selectComment(comment)}
+          />
+        ))}
+      </Comments>
+    </App>
+  );
+}
+```
+
+</CodeSurfer>
+
+---
+
+<NoScrollApp />
+
+---
+
+<h1 style={{ fontSize: '3.75em'}}><i>"How hard would it be to?..."</i></h1>
+<h1> - UX</h1>
+
+<Notes>
+
+- How many times have you heard this?
+- As a customer, I want to see the post that goes with a comment I select and a comment that goes with the post I select, so I can stay in the flow while editting
+
+</Notes>
+
+---
+
+- [Html Input Element API](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement)
+- [Dialog a11y](https://www.w3.org/TR/wai-aria-practices/examples/dialog-modal/dialog.html)
